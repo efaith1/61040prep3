@@ -64,12 +64,14 @@ class Routes {
   async deletePost(session: WebSessionDoc, _id: ObjectId) {
     // TODO 3: Delete the post with given _id
     // Make sure the user deleting is the author of the post
-    // const user = WebSession.getUser(session);
+
+    const user = WebSession.getUser(session);
     const owner = await Post.posts.readOne({ _id });
-    console.log(owner);
-    // if (user==owner){
-    //     return await Post.delete(_id);
-    // }
+    if (user === owner?.author) {
+      return await Post.delete(_id);
+    } else {
+      return { msg: "You are not the author!" };
+    }
   }
 }
 

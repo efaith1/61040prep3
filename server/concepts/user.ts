@@ -23,7 +23,7 @@ export default class UserConcept {
 
   async update(_id: ObjectId, update: Partial<UserDoc>) {
     // Hint: check out this.users.updateOne
-    await this.users.updateOne(_id, update);
+    await this.users.updateOne({ _id }, update);
   }
 
   // Sanitizes user object by removing password field
